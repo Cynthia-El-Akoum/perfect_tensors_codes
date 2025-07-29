@@ -2,7 +2,7 @@ import numpy as np
 from numpy.linalg import eig
 from numpy.linalg import inv
 from rank1_verification import is_rank1_tensor #This code checks if a tensor is of rank-1
-from compute_example9_parametrized_families import psi_mat
+from compute_example9_parametrized_families import psi_mat #This line calls the two-unitaries generated using the example of a parametrized family
 
 #Defines dimensions
 d=3 # Dimension of each subsystem
