@@ -81,20 +81,3 @@ if __name__ == "__main__":
         # Check if |λ^d - 1| is within numerical tolerance
         if not np.isclose(l**d, 1, atol=tolerance):
             print(f"Eigenvalue {i+1}: {l:.6f}, does not satisfy λ^{d} = 1 (value = {l**d:.6f})")
-
-    # Displays the eigenvalues and the corresponding eigenvectors
-    for i in range(d**4):
-        if np.abs(eigenvalues[i]) > 1e-8:
-            print(f"Eigenvalue {i}: {eigenvalues[i]:.2f}")
-            print(f"Eigenvector {i}: {eigenvectors[:, i].reshape(d**2,d**2)}")
-
-    # Checks which eigenvectors correspond to rank-1 tensors under reshaping
-    counter=0 #Counts the number of rank-1 eigenvectos
-    for i in range(d**4):
-        rank1= is_rank1_tensor(eigenvectors[:, i].reshape((d,d,d,d)))
-        if rank1==True:
-            counter+=1
-            print(f"Eigenvalue {i}: {eigenvalues[i]:.2f}")
-            print(f"Eigenvector {i}: {eigenvectors[:, i].reshape(d**2,d**2)} is rank1")
-
-    print(f"counter= {counter}")
