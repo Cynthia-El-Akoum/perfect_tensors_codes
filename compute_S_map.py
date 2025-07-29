@@ -1,7 +1,8 @@
 import numpy as np
 from numpy.linalg import eig
 from numpy.linalg import inv
-from Rank1_verification import is_rank1_tensor #This code checks if a tensor is of rank-1
+from rank1_verification import is_rank1_tensor #This code checks if a tensor is of rank-1
+from compute_example9_parametrized_families import psi_mat
 
 #Defines dimensions
 d=3 # Dimension of each subsystem
@@ -63,34 +64,37 @@ S_reshaped= S.reshape(d**4,d**4) # Reshapes the tensor into a matrix in order to
 
 eigenvalues, eigenvectors = eig(S_reshaped) # Computes eigenvalues and eigenvectors with python
 
-# Checks for the unitarity of the S map
-is_unitary = np.allclose(S_reshaped.conj().T @ S_reshaped, np.eye(d**4), atol=1e-10)
-print(f"Is the matrix unitary? {is_unitary}")
 
-# Checks for the normality of the S map
-is_normal = np.allclose(S_reshaped.conj().T @ S_reshaped, S_reshaped @ S_reshaped.conj().T, atol=1e-10)
-print(f"Is the matrix normal? {is_normal}")
+#to avoid the prints when importing
+if __name__ == "__main__":
+    # Checks for the unitarity of the S map
+    is_unitary = np.allclose(S_reshaped.conj().T @ S_reshaped, np.eye(d**4), atol=1e-10)
+    print(f"Is the matrix unitary? {is_unitary}")
 
-# Checks if all the eigenvalues are roots of unity
-tolerance = 1e-10
-for i, lambda in enumerate(eigenvalues):
-    # Check if |λ^d - 1| is within numerical tolerance
-    if not np.isclose(lambda**d, 1, atol=tolerance):
-        print(f"Eigenvalue {i+1}: {lambda:.6f}, does not satisfy λ^{d} = 1 (value = {lambda**d:.6f})")
+    # Checks for the normality of the S map
+    is_normal = np.allclose(S_reshaped.conj().T @ S_reshaped, S_reshaped @ S_reshaped.conj().T, atol=1e-10)
+    print(f"Is the matrix normal? {is_normal}")
 
-# Displays the eigenvalues and the corresponding eigenvectors
-for i in range(d**4):
-    if np.abs(eigenvalues[i]) > 1e-8:
-        print(f"Eigenvalue {i}: {eigenvalues[i]:.2f}")
-        print(f"Eigenvector {i}: {eigenvectors[:, i].reshape(d**2,d**2)}")
+    # Checks if all the eigenvalues are roots of unity
+    tolerance = 1e-10
+    for i, l in enumerate(eigenvalues):
+        # Check if |λ^d - 1| is within numerical tolerance
+        if not np.isclose(l**d, 1, atol=tolerance):
+            print(f"Eigenvalue {i+1}: {l:.6f}, does not satisfy λ^{d} = 1 (value = {l**d:.6f})")
 
-# Checks which eigenvectors correspond to rank-1 tensors under reshaping
-counter=0 #Counts the number of rank-1 eigenvectos
-for i in range(d**4):
-    rank1= is_rank1_tensor(eigenvectors[:, i].reshape((d,d,d,d)))
-    if rank1==True:
-        counter+=1
-        print(f"Eigenvalue {i}: {eigenvalues[i]:.2f}")
-        print(f"Eigenvector {i}: {eigenvectors[:, i].reshape(d**2,d**2)} is rank1")
+    # Displays the eigenvalues and the corresponding eigenvectors
+    for i in range(d**4):
+        if np.abs(eigenvalues[i]) > 1e-8:
+            print(f"Eigenvalue {i}: {eigenvalues[i]:.2f}")
+            print(f"Eigenvector {i}: {eigenvectors[:, i].reshape(d**2,d**2)}")
 
-print(f"counter= {counter}")
+    # Checks which eigenvectors correspond to rank-1 tensors under reshaping
+    counter=0 #Counts the number of rank-1 eigenvectos
+    for i in range(d**4):
+        rank1= is_rank1_tensor(eigenvectors[:, i].reshape((d,d,d,d)))
+        if rank1==True:
+            counter+=1
+            print(f"Eigenvalue {i}: {eigenvalues[i]:.2f}")
+            print(f"Eigenvector {i}: {eigenvectors[:, i].reshape(d**2,d**2)} is rank1")
+
+    print(f"counter= {counter}")
