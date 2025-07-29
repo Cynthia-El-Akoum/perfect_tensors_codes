@@ -99,7 +99,7 @@ def visualize_eigenspaces(matrix):
         for j in range(eigenspace.shape[1]):
             vector = eigenspace[:, j]
             if rank1_flags[j]:
-                status = "Rank-1 tensor"
+                status = "★ Rank-1 tensor ★"
                 counter += 1
             else:
                 status = "Not rank-1 tensor"
