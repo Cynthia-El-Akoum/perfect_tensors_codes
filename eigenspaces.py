@@ -29,21 +29,21 @@ def compute_eigensystem(matrix, tol=1e-8):
     else:
         reshape_dims = (d,d,d,d)
 
-    # Compute eigenvalues and eigenvectors
+    # Computes eigenvalues and eigenvectors
     eigenvalues, eigenvectors = np.linalg.eig(matrix)
 
-    # Round eigenvalues to handle numerical noise
+    # Rounds eigenvalues to handle numerical noise
     rounded_eigenvalues = np.round(eigenvalues, int(-np.log10(tol)))
 
-    # Find unique eigenvalues and degeneracies
+    # Finds unique eigenvalues and degeneracies
     unique_eigenvalues, degeneracies = np.unique(rounded_eigenvalues, return_counts=True)
 
-    # Group eigenvectors by eigenvalue
+    # Groups eigenvectors by eigenvalue
     eigen_dict = defaultdict(list)
     for val, vec in zip(rounded_eigenvalues, eigenvectors.T):
         eigen_dict[val].append(vec)
 
-    # Analyze eigenspaces and track rank-1 vectors
+    # Analyzes eigenspaces and tracks rank-1 vectors
     eigenspaces = []
     rank1_info = []
     rank1_eigenvectors = defaultdict(list)
@@ -52,18 +52,18 @@ def compute_eigensystem(matrix, tol=1e-8):
         eigenspace = np.array(eigen_dict[val]).T
         eigenspaces.append(eigenspace)
 
-        # Check rank-1 status for each eigenvector
+        # Checks rank-1 status for each eigenvector
         current_rank1 = []
         for i in range(eigenspace.shape[1]):
             vector = eigenspace[:, i]
 
-            # Reshape and check rank-1
+            # Reshapes and checks rank-1
             try:
                 tensor = vector.reshape(reshape_dims)
                 is_rank1 = is_rank1_tensor(tensor, tol)
                 current_rank1.append(is_rank1)
                 if is_rank1:
-                    rank1_eigenvectors[val].append(vector)  # Store rank-1 vectors
+                    rank1_eigenvectors[val].append(vector)  # Stores rank-1 vectors
             except:
                 current_rank1.append(False)
 
@@ -74,7 +74,7 @@ def compute_eigensystem(matrix, tol=1e-8):
         'degeneracies': degeneracies,
         'eigenspaces': eigenspaces,
         'rank1_vectors': rank1_info,
-        'rank1_eigenvectors': dict(rank1_eigenvectors)  # New: dictionary of rank-1 vectors
+        'rank1_eigenvectors': dict(rank1_eigenvectors)  #dictionary of rank-1 vectors
     }
 
 def visualize_eigenspaces(matrix):
