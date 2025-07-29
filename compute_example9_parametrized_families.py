@@ -76,13 +76,15 @@ def visualize_psi(psi):
                             sign = '+' if imag_part >= 0 else '-'
                             print(f"Ψ_{i+1}{j+1}{k+1}{l+1} = {real_part:.6f} {sign} {abs(imag_part):.6f}j")
 
+
 # Example usage
 t_params = np.random.rand(10, 4)*8
 
 for t in t_params:
     psi_tensor = compute_psi(t)
     psi_mat= psi_tensor.reshape(9,9)
-    psi_Gamma= ptv.partial_transpose(psi_tensor, 3, 3)
-    psi_R= ptv.realignment(psi_tensor, 3, 3)
-    ptv.check_perfect_tensor(psi_mat, psi_R, psi_Gamma, 3**2)
-    #visualize_psi(psi_tensor)
+    if __name__ == "__main__":
+        psi_Gamma= ptv.partial_transpose(psi_tensor, 3, 3)
+        psi_R= ptv.realignment(psi_tensor, 3, 3)
+        ptv.check_perfect_tensor(psi_mat, psi_R, psi_Gamma, 3**2)
+        #visualize_psi(psi_tensor)
