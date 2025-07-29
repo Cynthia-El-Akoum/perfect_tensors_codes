@@ -17,7 +17,8 @@ def compute_eigensystem(matrix, tol=1e-8):
             'eigenvalues': array of unique eigenvalues,
             'degeneracies': array of multiplicities,
             'eigenspaces': list of eigenspace matrices,
-            'rank1_vectors': list of lists showing which vectors are rank-1 tensors
+            'rank1_vectors': list of lists showing which vectors are rank-1 tensors,
+            'rank1_eigenvectors': dictionary of rank-1 vectors.
         }
     """
     # Verify matrix is d⁴×d⁴
