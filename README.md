@@ -2,7 +2,7 @@
 
 ## Overview
 
-In this internship, we aimed to construct perfect tensors using three primary methods provided in the literature, and to further study the eigenvalues and eigenvectors of their associated **S map**, defined in detail in the report (%insert sharing link)
+In this internship, we aimed to construct perfect tensors using three primary methods provided in the literature, and to further study the eigenvalues and eigenvectors of their associated **S map**, defined in detail in the report (insert sharing link)
 
 To achieve this, we primarily used the Python library `numpy` and developed code for both generating perfect tensors and computing the associated **S** tensor and its matrix representation to evaluate its spectrum.
 
