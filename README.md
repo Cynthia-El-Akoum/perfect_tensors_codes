@@ -22,7 +22,7 @@ The project is structured across seven Python files, each responsible for a spec
 
 - `rank1_verification.py`: Contains the function `is_rank1_tensor()` to check whether a given tensor is rank-1. Used across files for eigenvector validation.
 
-- `compute_example9_parametrized_families.py`: Generates a concrete example of parametrized families of perfect tensors of dimension 3, derived from the perfect tensor from OLS(3). Based on a construction from [REF].
+- `compute_example9_parametrized_families.py`: Generates a concrete example of parametrized families of perfect tensors of dimension 3, derived from the perfect tensor from OLS(3). Based on a construction from literature.
 
 - `eigenspaces.py`: Analyzes matrix eigensystems, checks rank-1 tensor status for both (d,d,d,d) and (d²,d²) reshapes of eigenvectors, and visualizes the results.
 
